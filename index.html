@@ -1,0 +1,122 @@
+<html>
+<head>
+
+<style type="text/css">
+body {
+  background-color:white;
+}
+
+#container {
+  width:600px;
+  margin-left: auto;
+  margin-right: auto;
+  border: solid black 1px;
+  margin-top: 10em;
+  min-height:20em;
+  background-color: #fff;
+}
+
+#bar {
+  width: 250px;
+  min-height: 20px;
+}
+
+.cell {
+  width: 19%;
+  border: solid #fff 1px;
+  background-color: #ccc;
+  display: block;
+  float: left;
+  min-height: 20px;
+}
+
+.on {
+  background-color: green;
+}
+</style>
+
+<title>Password meter demo</title>
+
+</head>
+
+<body>
+  <div id="container">
+
+    <label>Password <input name="password" type="text" id="password_field" /> </label>
+
+    <div id="bar">
+      <span id="s0" class="cell"></span>
+      <span id="s1" class="cell"></span>
+      <span id="s2" class="cell"></span>
+      <span id="s3" class="cell"></span>
+      <span id="s4" class="cell"></span>
+    </div>
+  </div>
+
+<script language="javascript" type="text/javascript" src="zxcvbn-async.js"></script>
+
+<script type="text/javascript" language="javascript">
+var pw_field = document.getElementById("password_field");
+
+function switchOffAllCells() {
+  switchOffCell(0);
+  switchOffCell(1);
+  switchOffCell(2);
+  switchOffCell(3);
+  switchOffCell(4);
+}
+
+function switchOffCell(number) {
+  var cell = document.getElementById('s' + number);
+  cell.className = 'cell';
+}
+
+function switchOnCell(number) {
+  var cell = document.getElementById('s' + number);
+  cell.className = 'cell on';
+}
+
+pw_field.onblur = function() {
+  var result = zxcvbn(pw_field.value);
+  var score = result.score;
+
+  switchOffAllCells();
+
+  switch(score)
+  {
+    case 0:
+      switchOnCell(0);
+      break;
+    case 1:
+      switchOnCell(0);
+      switchOnCell(1);
+      break;
+    case 2:
+      switchOnCell(0);
+      switchOnCell(1);
+      switchOnCell(2);
+      break;
+    case 3:
+      switchOnCell(0);
+      switchOnCell(1);
+      switchOnCell(2);
+      switchOnCell(3);
+      break;
+    case 4: 
+      switchOnCell(0);
+      switchOnCell(1);
+      switchOnCell(2);
+      switchOnCell(3);
+      switchOnCell(4);
+      break;
+    default:
+      swichOnCell(0);
+  }
+}
+
+
+
+</script>
+
+</body>
+</html>
