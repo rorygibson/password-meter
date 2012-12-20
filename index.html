@@ -24,15 +24,36 @@ body {
 .cell {
   width: 19%;
   border: solid #fff 1px;
-  background-color: #ccc;
   display: block;
   float: left;
   min-height: 20px;
+  background-color: #ccc;
 }
 
-.on {
+#s0.on {
+  background-color: red;
+}
+
+#s1.on {
+  background-color: #EE8262;
+}
+
+#s2.on {
+  background-color: orange;
+}
+
+#s3.on {
+  background-color: #C8F526;
+}
+
+#s4.on {
   background-color: green;
 }
+
+span#strength-text {
+  float:left;
+  }
+
 </style>
 
 <title>Password meter demo</title>
@@ -51,6 +72,7 @@ body {
       <span id="s3" class="cell"></span>
       <span id="s4" class="cell"></span>
     </div>
+    <span id="strength-text"></span>
   </div>
 
 <script language="javascript" type="text/javascript" src="zxcvbn-async.js"></script>
@@ -64,6 +86,11 @@ function switchOffAllCells() {
   switchOffCell(2);
   switchOffCell(3);
   switchOffCell(4);
+}
+
+function indicateStrength(str) {
+  text = document.getElementById("strength-text");
+  text.innerHTML = str;
 }
 
 function switchOffCell(number) {
@@ -86,21 +113,25 @@ pw_field.onblur = function() {
   {
     case 0:
       switchOnCell(0);
+      indicateStrength("Very weak");
       break;
     case 1:
       switchOnCell(0);
       switchOnCell(1);
+      indicateStrength("Weak");
       break;
     case 2:
       switchOnCell(0);
       switchOnCell(1);
       switchOnCell(2);
+      indicateStrength("Adequate");
       break;
     case 3:
       switchOnCell(0);
       switchOnCell(1);
       switchOnCell(2);
       switchOnCell(3);
+      indicateStrength("Pretty good");
       break;
     case 4: 
       switchOnCell(0);
@@ -108,6 +139,7 @@ pw_field.onblur = function() {
       switchOnCell(2);
       switchOnCell(3);
       switchOnCell(4);
+      indicateStrength("Excellent");
       break;
     default:
       swichOnCell(0);
